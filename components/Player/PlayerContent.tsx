@@ -60,13 +60,11 @@ function PlayerContent(episode: PlayerContentProps) {
 			>
 				<Circle text={PlayOrPause} />
 			</div>
-			<div className="flex-1 flex flex-col">
+			<div className="flex-1 flex flex-col p-4">
 				<div className="text-xl hidden md:block">
 					Currently playing:
 				</div>
-				<div
-					className={`${Melodrama.className} text-4xl md:text-6xl p-4`}
-				>
+				<div className={`${Melodrama.className} text-4xl md:text-6xl`}>
 					{episode.title}
 				</div>
 			</div>
