@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body,
+:root {
+	--mouseX: 100%;
+	--mouseY: 30%;
+	height: 100%;
+}
+html {
+	background: #e2dfdc;
+	min-height: 100%;
+	height: fit-content;
+}
+
+.bg {
+	isolation: isolate;
+	position: absolute;
+	inset: 0px;
+	z-index: -1;
+}
+.bg .gradient {
+	position: absolute;
+	inset: 0px;
+	transform: scale(1);
+	filter: contrast(150%) brightness(600%);
+	background-image: linear-gradient(to top left, #f9284f9e 0%, #00000021 50%),
+		radial-gradient(circle at 10% 30%, #5336004a 0%, #0000 50%),
+		radial-gradient(
+			circle at var(--mouseX) var(--mouseY),
+			rgba(149, 9, 77, 0.2),
+			rgba(0, 0, 0, 0) 50%
+		),
+		url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+.bg .overlay {
+	position: absolute;
+	inset: 0px;
+	background: #e2dfdc;
+	mix-blend-mode: multiply;
+}
+
+.turn {
+	animation: spin 60s linear infinite;
+}
+
+.codex-editor,
+.codex-editor__redactor {
+	height: 100%;
+}
+.ce-header {
+	font-size: 3rem;
+}
+
+@keyframes spin {
+	from {
+		transform: rotate(0);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
