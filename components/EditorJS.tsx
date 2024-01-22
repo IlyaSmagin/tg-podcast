@@ -7,17 +7,20 @@ import { updatePost } from "@/actions/uploadPost";
 const EDITOR_JS_TOOLS = {
 	header: Header,
 };
+
 const ReactEditorJS = createReactEditorJS();
 export default function EditorJS() {
-	const editorCore = useRef(null);
+	const editorCore = useRef<any>(null);
 	const handleInitialize = useCallback((instance: any) => {
 		editorCore.current = instance;
 		setIsLoading(false);
 	}, []);
-	async function handleSave() {
-		const savedData = await editorCore.current.save();
+	const handleSave = useCallback(async () => {
+		//TODO fix TS
+
+		const savedData = await editorCore.current?.save();
 		const uploaded = await updatePost(savedData.blocks);
-	}
+	}, []);
 	const [isLoading, setIsLoading] = useState(true);
 	return (
 		<>
