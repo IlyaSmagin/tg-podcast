@@ -1,7 +1,4 @@
 import { PageTitle } from "@/components/PageTitle";
-import { uploadPodcast } from "../../../actions/uploadPodcast";
-import { SubmitServerButton } from "@/components/Auth/SubmitServerButton";
-import { AuthButton } from "@/components/Auth/AuthButtonDepr";
 import readUserSession from "@/actions/sessions";
 import { redirect } from "next/navigation";
 import { SignOut } from "@/actions/signOut";
