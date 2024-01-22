@@ -1,6 +1,7 @@
 "use client";
 import { useState, useRef, useCallback, Ref } from "react";
 import { createReactEditorJS } from "react-editor-js";
+// @ts-ignore
 import Header from "@editorjs/header";
 import { updatePost } from "@/actions/uploadPost";
 const EDITOR_JS_TOOLS = {
@@ -9,7 +10,7 @@ const EDITOR_JS_TOOLS = {
 const ReactEditorJS = createReactEditorJS();
 export default function EditorJS() {
 	const editorCore = useRef(null);
-	const handleInitialize = useCallback((instance) => {
+	const handleInitialize = useCallback((instance: any) => {
 		editorCore.current = instance;
 		setIsLoading(false);
 	}, []);
