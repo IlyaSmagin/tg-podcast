@@ -2,8 +2,8 @@
 
 import { signUpWithEmailAndPassword } from "@/actions/authActions";
 import { z } from "zod";
-//todo rename object
-const passwordForm = z
+
+const signUpSchema = z
 	.object({
 		email: z.string().email({ message: "Invalid email address" }),
 		password: z.string(),
@@ -14,29 +14,32 @@ const passwordForm = z
 		path: ["confirm"], // path of error
 	});
 
-passwordForm.safeParse({ email: "",password: "asdf", confirm: "asdf" });
-
 export async function handleSignUp(formData: FormData) {
 	const email = formData.get("email");
 	const password = formData.get("password");
 	const confirm = formData.get("confirm");
-	if (email && password && confirm) {
-		const result = await signUpWithEmailAndPassword({
-			email: email as string,
-			password: password as string,
-			confirm: password as string,
+
+	const unvalidatedFormData = { email, password, confirm };
+	const safeFormData = signUpSchema.safeParse(unvalidatedFormData);
+
+	if (!safeFormData.success) {
+		//TODO more funtional style?
+		const errorlist = safeFormData.error.issues;
+		let errorMessageForClient = { error: "" };
+
+		errorlist.forEach((error) => {
+			errorMessageForClient.error += " " + error.message;
 		});
-		const { error } = JSON.parse(result);
-		if (error?.message) {
-			console.error(error);
-		} else {
-			console.log("Singing up...");
-		}
+		return errorMessageForClient;
+	}
+
+	const { error } = await signUpWithEmailAndPassword(safeFormData.data);
+	if (error) {
+		console.error(error);
+		return {
+			error: "Email, password or conformation password is incorrect",
+		};
 	} else {
-		console.error(
-			"email, password or password conformation was not provided",
-			formData,
-			email
-		);
+		console.log("new user sign up...");
 	}
 }
